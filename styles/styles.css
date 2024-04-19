@@ -10,20 +10,29 @@ video{
     object-fit: cover;
 }
 
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .box {
     width: 1000px;
     height: 500px;
     border: 1px solid #6c757d;
-    margin: 175px auto;
+    margin: auto;
 
 }
 
 
 #table{
-    margin: 150px 0;
-    width: 1000px;
+    margin: 15% 15%;
+    width: 75%;
     height: 200px;
-    /* border: 1px solid #000; */
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: row;
 
 }
 
@@ -32,8 +41,8 @@ video{
     border: 1px solid #000;
     width: 120px;
     height: 200px;
-    display: inline-flex;
-    margin: 0 8.5px;
+    
+    margin: 0 12px;
     /* margin: 0 auto; */
 }
 
