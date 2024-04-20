@@ -10,6 +10,14 @@ video{
     object-fit: cover;
 }
 
+
+img.weather-icon {
+    width: 80px;
+    height: 80px;
+    margin-left: 17px;
+}
+
+
 body{
     display: flex;
     justify-content: center;
