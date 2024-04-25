@@ -11,28 +11,24 @@ video{
 }
 
 
-img.weather-icon {
-    width: 80px;
-    height: 80px;
-    margin-left: 21px;
-    padding-top: 25px;
-
-    /* margin: 0 auto; */
-
-}
-
-
 body{
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
+img.weather-icon {
+    width: 80px;
+    height: 80px;
+    margin-left: 17px;
+}
 
-div.temp{
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 33px;
+
+div#search-engine {
+
+    position: fixed;
+
 
 }
 
@@ -40,7 +36,7 @@ div.temp{
 .box {
     width: 1000px;
     height: 500px;
-    border: 1px solid #6c757d;
+    border: 100px solid #6c757d;
     margin: auto;
 
 }
@@ -50,19 +46,12 @@ div.temp{
     margin: 15% 15%;
     width: 75%;
     height: 200px;
-    /* border: 1px solid #000; */
+    border: 1px solid #000;
     display: flex;
     flex-direction: row;
 
 }
 
-/* img.weather-icon{} */
-
-
-div.day {
-    width: 50%;
-    margin: auto;
-}
 
 .days {
     border: 1px solid #000;

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="styles/styles.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather App</title>
+        <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+        
+        <script src="script/main.js" defer></script>
+
+    </head>
+    <body>
+        <div>
+            <video src="videos/background.mp4" autoplay muted loop></video>
+        </div>
+        <div class="box">
+
+            <div id="search">
+                <input type="text" id="search-btn" placeholder="    Search your city">
+                <i class="fa-solid fa-magnifying-glass"></i>
+               <button id="city-search" onclick="getPts()">Search</button>
+
+
+            </div>
+
+             <div id="table" >
+                <div class="days">
+
+                    <div id="day-one" class="day">Mon</div>
+                    <div>
+                        <img class="weather-icon" id="day-one-icon" src="svg_icons/Cloud with rain.svg" alt="cloud with rain">
+                    </div>
+                    <div class="temp">
+                        <div class="temp-max" id="day-one-max">37</div>
+                        <div class="temp-min" id="day-one-min">25</div>
+                    </div>
+                </div>
+                <div class="days">
+                    <div id="day-two" class="day">Tue</div>
+                    <div>
+                        <img id="day-two-icon" class="weather-icon" src="svg_icons/Sun.svg" alt="sun">
+                    </div>
+                    <div class="temp">
+                        <div class="temp-max" id="day-two-max">27</div>
+                        <div class="temp-min" id="day-two-min">36</div>
+                    </div>
+
+
+                </div>
+                <div class="days">
+                    <div id="day-three" class="day">Wed</div>
+                    <div>
+                        <img id="day-three-icon" class="weather-icon" src="svg_icons/Sun behind cloud.svg" alt="Sun behind clouds">
+                    </div>
+                    <div class="temp">
+                        <div class="temp-max" id="day-three-max">15</div>
+                        <div class="temp-min" id="day-three-min">26</div>
+                    </div>
+
+                </div>
+                <div class="days">
+                    <div id="day-four" class="day">Thurs</div>
+                    <div>
+                        <img class="weather-icon" src="svg_icons/Cloud.svg" alt="">
+                    </div>
+                    <div class="temp">
+                        <div class="temp-max" id="day-four-max">15</div>
+                        <div class="temp-min" id="day-four-min">25</div>
+                    </div>
+
+                </div>
+                <div class="days">
+                    <div id="day-five" class="day">Fri</div>
+                    <div>
+                        <img class="weather-icon" src="svg_icons/Cloud with rain.svg" alt="Cloud with rain">
+                    </div>
+                    <div class="temp">
+                        <div class="temp-max" id="day-five-max">15</div>
+                        <div class="temp-min" id="day-five-min">27</div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </body>
+</html>
