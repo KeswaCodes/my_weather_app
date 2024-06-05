@@ -19,10 +19,10 @@ function displayPt(obj) {
     axios.get(apiUrl).then((response) => {
         const responseHolder = response;
         // return responseHolder;
-        updateWeatherDates();
+        updateWeatherDays();
             updateIcons(responseHolder.data.daily);
     });
-    // }).then(updateWeatherDates).then(updateIcons);}
+    // }).then(updateWeatherDays).then(updateIcons);}
 }
  
 
@@ -37,9 +37,9 @@ function loadDays() {
     daysDictionary[4] = "Thur";
     daysDictionary[5] = "Fri";
     daysDictionary[6] = "Sat";
-
     return daysDictionary;
 }
+
 
 function getDay(day) {
     return daysDictionary[day];
@@ -47,8 +47,19 @@ function getDay(day) {
 
 
 function updateTemps(responseObject) {
-    for(i = 0; i < 5; i++) {
+
+    for(let i = 0; i < 6; i++) {
+
+        // document.getElementById().innerHTML = ;
+        // document.getElementById().innerHTML = ;
+        ;
+
+
+
+        
     }
+    
+    
 }
 
 
@@ -103,24 +114,16 @@ function matchIcon(weatherSummary) {
 
 
 
-function updateWeatherDates() {
+function updateWeatherDays() {
 
     const dt = new Date();
     var currentDay = dt.getDay();
-    let sunday = new Date("2024-06-02");
-    console.log(sunday.getDay());
+    let sunday = new Date("2024-06-09");
     for(i = 0; i < 5; i++) {
         var myInt = Number(currentDay + i);
-        // console.log(sunday.getDay());
-        if(Number(currentDay) == Number(sunday.getDay())) {
-            myInt = 0;
-            console.log("Chnaged");
-
-
-        }
+        if(currentDay + i === 7) {myInt = 0;}
         weekDay = getDay(myInt);
         document.getElementById(days[i]).innerHTML = weekDay;
-        // document.getElementById(days[i]).innerHTML =  currentMonth + "/" + weekDay;
     }
 
 }
@@ -128,44 +131,18 @@ function updateWeatherDates() {
 
 function writeToFile() {
 
-
     navigator.geolocation.getCurrentPosition(position => {
         console.log(position)
       })
-      
-    
-    
-    
-    // axios.get('https://api.example.com/data')
-    // .then(response => {
-    //     // Assuming response.data contains the JSON data
-    //     const jsonData = response.data;
-
-    //     // Convert JavaScript object to JSON string
-    //     const jsonString = JSON.stringify(jsonData);
-
-    //     // Write JSON string to a file
-    //     fs.writeFile('output.json', jsonString, 'utf8', (err) => {
-    //         if (err) {
-    //             console.error('Error writing JSON file:', err);
-    //             return;
-    //         }
-    //         console.log('JSON file has been saved.');
-    //     });
-    // })
-    
-    
-    
 }
 
 
-
 function newDay(){
-    
     const dt = new Date();
     let date = (dt.getMonth() + 1).toString() + "/" + (dt.getDate()).toString();
     document.getElementById('day-one').innerHTML = " " + date + " ";
 }
+
 
 function getWeatherInfo(long, lati) {
 
@@ -175,15 +152,12 @@ function getWeatherInfo(long, lati) {
     // let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lati}&lon=${long}&units=metric&appid=${api}`; // this is for 5 day forecast 
     
     // let apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lati}&lon=${long}&units=metric&cnt=5&appid=${api}`;
-    let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
+    let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?la t=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
 
-    const dt = new Date();
-    let date = (dt.getMonth() + 1).toString() + "/" + (dt.getDate()).toString();
-    // let date = ((dt.getMonth() + 1).toString()).concat("/", dt.getDate().toString());
-    document.getElementById('day-one').innerHTML = " " + date + " ";
-
+    const dt = new Date().getDay();
+    let day = getDay(dt);
+    document.getElementById('day-one').innerHTML = day;
     axios.get(apiUrl).then(response => {console.log(response);});
-    // axios.get(apiUrl);
     
 }
 
@@ -194,6 +168,18 @@ function getPts() {
     let check = validInput(cityName);
     if(check === false) return;
     getWeatherInfo(-26.20, 28.05);
+
+
+
+
+    fetch('./mydata.json')
+    .then((response) => response.json())
+    .then((json) => console.log(json)).catch("Failed");
+    
+    
+    
+    console.log();
+    
     // getWeatherInfo(18.41, -33.92);
 
     // let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`;
