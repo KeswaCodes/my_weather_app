@@ -8,8 +8,6 @@ let daysDictionary = Object.create(null);
 loadDays();
 
 
-
-
 function displayPt(obj) {
     let lati = obj.coords.latitude;
     let long = obj.coords.longitude;
@@ -18,8 +16,11 @@ function displayPt(obj) {
     axios.get(apiUrl).then((response) => {
         const responseHolder = response;
 
+
         // return responseHolder;
+        console.log(response);
         updateWeatherDays();
+        updateTemps(responseHolder.data.daily);
         updateIcons(responseHolder.data.daily);
     });
     // }).then(updateWeatherDays).then(updateIcons);}
@@ -48,11 +49,11 @@ function getDay(day) {
 
 function updateTemps(responseObject) {
 
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < 5; i++) {
 
-        // document.getElementById().innerHTML = ;
-        // document.getElementById().innerHTML = ;
-        ;
+        dayWeather = responseObject[i].temp;
+        document.getElementById(daysMaxId[i]).innerHTML = Math.round(dayWeather.max);
+        document.getElementById(daysMinId[i]).innerHTML = Math.round(dayWeather.min);
 
 
 
