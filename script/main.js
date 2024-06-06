@@ -1,4 +1,4 @@
-var days =["day-one","day-two","day-three","day-four","day-five"]
+var days =["day-one","day-two","day-three","day-four","day-five", "day-six", "day-seven"]
 var daysMaxId = ["day-one-max","day-two-max","day-three-max","day-four-max","day-five-max"]
 var daysMinId = ["day-one-min","day-two-min","day-three-min","day-four-min","day-five-min"]
 let position = navigator.geolocation.getCurrentPosition(displayPt);
@@ -10,17 +10,17 @@ loadDays();
 
 
 
-
-
 function displayPt(obj) {
     let lati = obj.coords.latitude;
     let long = obj.coords.longitude;
     let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
+    // console.log(apiUrl);
     axios.get(apiUrl).then((response) => {
         const responseHolder = response;
+
         // return responseHolder;
         updateWeatherDays();
-            updateIcons(responseHolder.data.daily);
+        updateIcons(responseHolder.data.daily);
     });
     // }).then(updateWeatherDays).then(updateIcons);}
 }
@@ -110,22 +110,20 @@ function matchIcon(weatherSummary) {
 
 
 
-//   trying to get weather app to work with the days of the week instead of just days 
-
-
-
+// function converts date to weekday 
 function updateWeatherDays() {
-
     const dt = new Date();
     var currentDay = dt.getDay();
-    let sunday = new Date("2024-06-09");
-    for(i = 0; i < 5; i++) {
-        var myInt = Number(currentDay + i);
-        if(currentDay + i === 7) {myInt = 0;}
-        weekDay = getDay(myInt);
-        document.getElementById(days[i]).innerHTML = weekDay;
-    }
+    count = 0;
+    actualCurrentDay = currentDay + count;
 
+    for(let j = 0; j < 5; j++) {
+        if(actualCurrentDay === 7) {actualCurrentDay = 0;}
+        weekday = getDay(Number(actualCurrentDay));
+        document.getElementById(days[j]).innerHTML = weekday;
+        console.log(weekday);
+        actualCurrentDay++;
+    }
 }
 
 
@@ -152,7 +150,7 @@ function getWeatherInfo(long, lati) {
     // let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lati}&lon=${long}&units=metric&appid=${api}`; // this is for 5 day forecast 
     
     // let apiUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lati}&lon=${long}&units=metric&cnt=5&appid=${api}`;
-    let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?la t=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
+    let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
 
     const dt = new Date().getDay();
     let day = getDay(dt);
@@ -168,17 +166,6 @@ function getPts() {
     let check = validInput(cityName);
     if(check === false) return;
     getWeatherInfo(-26.20, 28.05);
-
-
-
-
-    fetch('./mydata.json')
-    .then((response) => response.json())
-    .then((json) => console.log(json)).catch("Failed");
-    
-    
-    
-    console.log();
     
     // getWeatherInfo(18.41, -33.92);
 
