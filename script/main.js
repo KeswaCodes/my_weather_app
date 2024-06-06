@@ -50,17 +50,10 @@ function getDay(day) {
 function updateTemps(responseObject) {
 
     for(let i = 0; i < 5; i++) {
-
         dayWeather = responseObject[i].temp;
         document.getElementById(daysMaxId[i]).innerHTML = Math.round(dayWeather.max);
         document.getElementById(daysMinId[i]).innerHTML = Math.round(dayWeather.min);
-
-
-
-        
     }
-    
-    
 }
 
 
@@ -74,9 +67,13 @@ function updateIcons(weatherResponse) {
     for(i = 0; i < 5; i++) {
         // console.log(weatherResponse[i].weather[0].main);
         // console.log("Hiiii");
-        let newIcon = matchIcon(weatherResponse[i].weather[0].main);
-        document.getElementById(days);
-        console.log(newIcon);
+        // console.log(weatherResponse);
+        console.log();
+        summary = weatherResponse[i].weather[0].main;
+        let newIcon = matchIcon(summary);
+        // console.log(newIcon);
+        document.getElementById(days[i]).setAttribute("src", newIcon);
+        // console.log(newIcon);
         // console.log(myvar);
     }
 
@@ -86,25 +83,23 @@ function updateIcons(weatherResponse) {
 function matchIcon(weatherSummary) {
 
     // console.log(weatherSummary);
-    var img = "";
     // console.log(weatherSummary);
+    
     switch(weatherSummary) {
 
-        case "Clouds":
-            img = "svg_icons/Cloud.svg";
+        case 'Cloud':
+            img = 'svg_icons/Cloud.svg';
             break;
-
-        case "Rain":
-            img = "svg_icons/Cloud_with_rain.svg";
+        case 'Rain':
+            img = 'svg_icons/Cloud_with_rain.svg';
             break;
-
-        case "Clear":
-            img = "svg_icons/Sun.svg";
+        case 'Clear':
+            img = 'svg_icons/Sun.svg';
         default:
-            img = "svg_icons/Sun behind cloud.svg";
+            img = 'svg_icons/Sun behind cloud.svg';
     }
 
-    // console.log(img);
+    console.log(img);
     return img;
 
 }
