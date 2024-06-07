@@ -65,25 +65,15 @@ function updateIcons(weatherResponse) {
 
 
     for(i = 0; i < 5; i++) {
-        // console.log(weatherResponse[i].weather[0].main);
-        // console.log("Hiiii");
-        // console.log(weatherResponse);
-        // console.log();
         summary = weatherResponse[i].weather[0].main;
         let newIcon = matchIcon(summary);
-        // console.log(newIcon);
-        // console.log(days[i]);
-
         document.getElementById(days[i]).setAttribute("src", newIcon);
-        // console.log(newIcon);
-        // console.log(myvar);
     }
 
 
 }
 
 function matchIcon(weatherSummary) {
-
     if(weatherSummary == 'Clear') {img = 'svg_icons/Sun.svg';}
     else if(weatherSummary == 'Cloud') {img = 'svg_icons/Cloud.svg';}
     else if(weatherSummary == 'Rain') {img = 'svg_icons/Cloud_with_rain.svg';}
