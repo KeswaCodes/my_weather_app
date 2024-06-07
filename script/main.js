@@ -68,10 +68,12 @@ function updateIcons(weatherResponse) {
         // console.log(weatherResponse[i].weather[0].main);
         // console.log("Hiiii");
         // console.log(weatherResponse);
-        console.log();
+        // console.log();
         summary = weatherResponse[i].weather[0].main;
         let newIcon = matchIcon(summary);
         // console.log(newIcon);
+        // console.log(days[i]);
+
         document.getElementById(days[i]).setAttribute("src", newIcon);
         // console.log(newIcon);
         // console.log(myvar);
@@ -82,24 +84,10 @@ function updateIcons(weatherResponse) {
 
 function matchIcon(weatherSummary) {
 
-    // console.log(weatherSummary);
-    // console.log(weatherSummary);
-    
-    switch(weatherSummary) {
-
-        case 'Cloud':
-            img = 'svg_icons/Cloud.svg';
-            break;
-        case 'Rain':
-            img = 'svg_icons/Cloud_with_rain.svg';
-            break;
-        case 'Clear':
-            img = 'svg_icons/Sun.svg';
-        default:
-            img = 'svg_icons/Sun behind cloud.svg';
-    }
-
-    console.log(img);
+    if(weatherSummary == 'Clear') {img = 'svg_icons/Sun.svg';}
+    else if(weatherSummary == 'Cloud') {img = 'svg_icons/Cloud.svg';}
+    else if(weatherSummary == 'Rain') {img = 'svg_icons/Cloud_with_rain.svg';}
+    else {img = 'svg_icons/Sun behind cloud.svg';}
     return img;
 
 }
