@@ -33,10 +33,18 @@ div#search-engine {
 }
 
 
+#one-day-icon {
+    width: 50%;
+    height: 75%;
+    border: 1px solid black;
+    margin: 0 12px;
+}
+
+
 .box {
     width: 1000px;
     height: 500px;
-    border: 100px solid #6c757d;
+    border: 1px solid #6c757d;
     margin: auto;
 
 }

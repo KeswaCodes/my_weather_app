@@ -18,7 +18,7 @@ function displayPt(obj) {
 
 
         // return responseHolder;
-        console.log(response);
+        // console.log(response);
         updateWeatherDays();
         updateTemps(responseHolder.data.daily);
         updateIcons(responseHolder.data.daily);
@@ -74,10 +74,19 @@ function updateIcons(weatherResponse) {
 }
 
 function matchIcon(weatherSummary) {
-    if(weatherSummary == 'Clear') {img = 'svg_icons/Sun.svg';}
-    else if(weatherSummary == 'Cloud') {img = 'svg_icons/Cloud.svg';}
-    else if(weatherSummary == 'Rain') {img = 'svg_icons/Cloud_with_rain.svg';}
-    else {img = 'svg_icons/Sun behind cloud.svg';}
+    
+    img = 'svg_icons/Sun.svg';
+    switch(String(weatherSummary)) {
+        case "Clear":
+            img = 'svg_icons/Sun.svg';
+            break;
+        case "Cloud":
+            img = 'svg_icons/Cloud.svg';
+            break;
+        case "Rain":
+            img = 'svg_icons/Cloud_with_rain.svg';
+            break;
+    }
     return img;
 
 }
@@ -95,7 +104,7 @@ function updateWeatherDays() {
         if(actualCurrentDay === 7) {actualCurrentDay = 0;}
         weekday = getDay(Number(actualCurrentDay));
         document.getElementById(days[j]).innerHTML = weekday;
-        console.log(weekday);
+        // console.log(weekday);
         actualCurrentDay++;
     }
 }
@@ -137,31 +146,55 @@ function getWeatherInfo(long, lati) {
 
 function getPts() {
     var cityName = document.getElementById('search-btn').value;
-    let check = validInput(cityName);
+    let check = validateSearchButton(cityName);
     if(check === false) return;
-    getWeatherInfo(-26.20, 28.05);
-    
+    // getWeatherInfo(-26.20, 28.05);
     // getWeatherInfo(18.41, -33.92);
 
-    // let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`;
-    // axios.get(url).then((response) => {
-    //     latitude = response.data[0].lat;
-    //     longitude = response.data[0].lon;
-    //     console.log(latitude);
-    //     console.log(longitude);
+    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`;
+    axios.get(url).then((response) => {
 
-    //     getWeatherInfo(latitude.toFixed(2), longitude.toFixed(2)); // toFixed(x) rounds off to x decimal places
-    //     });
+        // if(Number(response.status) == 200) {console.log("breach");}
+        // console.log(response);
+        validCity = validateCityName(response);
+        // console.log(validCity);
+        if(validCity == false) {
+            // console.log("breach");
+            getWeatherInfo(-26.20, 28.05);
+            return;
+        }
+        
+        else {
+
+            latitude = response.data[0].lat;    
+            longitude = response.data[0].lon;
+            // console.log(latitude);
+            // console.log(longitude);
+            // console.log(response.status);
+            getWeatherInfo(latitude.toFixed(2), longitude.toFixed(2)); // toFixed(x) rounds off to x decimal places
+                
+            
+        }
+        
+
+        });
     
 }
 
 
+function validateCityName(apiResponse) {
+    // console.log(apiResponse.status);
 
-
-function validInput(inpt) {
-    let inputHolder = inpt.trim();
-    if(inputHolder == '') return false;
+    myVar = apiResponse.data.length === 0;
+    if(myVar == true) return false;
     return true;
 }
 
-// main();
+
+function validateSearchButton(inpt) {
+    let inputHolder = inpt.trim();
+    if(inputHolder === '') return false;
+    return true;
+}
+
+// main();  
