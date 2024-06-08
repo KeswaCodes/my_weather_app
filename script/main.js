@@ -1,8 +1,10 @@
+import {validateCityName, validateSearchButton} from './validation.js';
+
 var days =["day-one","day-two","day-three","day-four","day-five", "day-six", "day-seven"]
 var daysMaxId = ["day-one-max","day-two-max","day-three-max","day-four-max","day-five-max"]
 var daysMinId = ["day-one-min","day-two-min","day-three-min","day-four-min","day-five-min"]
 let position = navigator.geolocation.getCurrentPosition(displayPt);
-var latitude = 0, longitude = 0;
+var latitude  = 0, longitude = 0;
 let api = "773de069efc30b89839c476356b2799f";
 let daysDictionary = Object.create(null);
 loadDays();
@@ -146,6 +148,8 @@ function getWeatherInfo(long, lati) {
 
 function getPts() {
     var cityName = document.getElementById('search-btn').value;
+
+    
     let check = validateSearchButton(cityName);
     if(check === false) return;
     // getWeatherInfo(-26.20, 28.05);
@@ -182,19 +186,19 @@ function getPts() {
 }
 
 
-function validateCityName(apiResponse) {
-    // console.log(apiResponse.status);
+// function validateCityName(apiResponse) {
+//     // console.log(apiResponse.status);
 
-    myVar = apiResponse.data.length === 0;
-    if(myVar == true) return false;
-    return true;
-}
+//     myVar = apiResponse.data.length === 0;
+//     if(myVar == true) return false;
+//     return true;
+// }
 
 
-function validateSearchButton(inpt) {
-    let inputHolder = inpt.trim();
-    if(inputHolder === '') return false;
-    return true;
-}
+// function validateSearchButton(inpt) {
+//     let inputHolder = inpt.trim();
+//     if(inputHolder === '') return false;
+//     return true;
+// }
 
 // main();  
