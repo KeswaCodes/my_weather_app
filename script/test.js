@@ -1,2 +1,8 @@
-import('./main.js').then(module => {console.log(module.days);}).catch(console.log("Caught"));
+import("./validation.js").then(module => {
+
+    module.validateCityName
+
+    
+    
+}).catch();
 

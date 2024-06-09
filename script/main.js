@@ -1,5 +1,3 @@
-import {validateCityName, validateSearchButton} from './validation.js';
-
 var days =["day-one","day-two","day-three","day-four","day-five", "day-six", "day-seven"]
 var daysMaxId = ["day-one-max","day-two-max","day-three-max","day-four-max","day-five-max"]
 var daysMinId = ["day-one-min","day-two-min","day-three-min","day-four-min","day-five-min"]
@@ -150,38 +148,49 @@ function getPts() {
     var cityName = document.getElementById('search-btn').value;
 
     
-    let check = validateSearchButton(cityName);
-    if(check === false) return;
-    // getWeatherInfo(-26.20, 28.05);
-    // getWeatherInfo(18.41, -33.92);
+    import("./validation.js").then(module => {
 
-    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`;
-    axios.get(url).then((response) => {
 
-        // if(Number(response.status) == 200) {console.log("breach");}
-        // console.log(response);
-        validCity = validateCityName(response);
-        // console.log(validCity);
-        if(validCity == false) {
-            // console.log("breach");
-            getWeatherInfo(-26.20, 28.05);
-            return;
-        }
-        
-        else {
+        let check = module.validateSearchButton(cityName);
+        if(check === false) return;
+        // getWeatherInfo(-26.20, 28.05);
+        // getWeatherInfo(18.41, -33.92);
 
-            latitude = response.data[0].lat;    
-            longitude = response.data[0].lon;
-            // console.log(latitude);
-            // console.log(longitude);
-            // console.log(response.status);
-            getWeatherInfo(latitude.toFixed(2), longitude.toFixed(2)); // toFixed(x) rounds off to x decimal places
-                
+        let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`;
+        axios.get(url).then((response) => {
+
+            // if(Number(response.status) == 200) {console.log("breach");}
+            // console.log(response);
+            validCity = module.validateCityName(response);
+            // console.log(validCity);
+            if(validCity == false) {
+                // console.log("breach");
+                getWeatherInfo(-26.20, 28.05);
+                return;
+            }
             
-        }
-        
+            else {
 
-        });
+                latitude = response.data[0].lat;    
+                longitude = response.data[0].lon;
+                // console.log(latitude);
+                // console.log(longitude);
+                // console.log(response.status);
+                getWeatherInfo(latitude.toFixed(2), longitude.toFixed(2)); // toFixed(x) rounds off to x decimal places
+                    
+                
+            }
+            
+
+            });
+            
+            
+            
+            
+        
+    }).catch();
+    
+    
     
 }
 
