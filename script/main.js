@@ -1,77 +1,32 @@
 var days =["day-one","day-two","day-three","day-four","day-five", "day-six", "day-seven"]
 var daysMaxId = ["day-one-max","day-two-max","day-three-max","day-four-max","day-five-max"]
 var daysMinId = ["day-one-min","day-two-min","day-three-min","day-four-min","day-five-min"]
-let position = navigator.geolocation.getCurrentPosition(displayPt);
+let position = navigator.geolocation.getCurrentPosition(displayInitialUpdate);
 var latitude  = 0, longitude = 0;
 let api = "773de069efc30b89839c476356b2799f";
-let daysDictionary = Object.create(null);
-loadDays();
 
 
-function displayPt(obj) {
+function displayInitialUpdate(obj) {
     let lati = obj.coords.latitude;
     let long = obj.coords.longitude;
-    let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
-    // console.log(apiUrl);
-    axios.get(apiUrl).then((response) => {
-        const responseHolder = response;
-
-
-        // return responseHolder;
-        // console.log(response);
-        updateWeatherDays();
-        updateTemps(responseHolder.data.daily);
-        updateIcons(responseHolder.data.daily);
-    });
-    // }).then(updateWeatherDays).then(updateIcons);}
+    import("./update.js").then(module => {module.loadDays();}).catch();
+    displayResponse(lati, long);
 }
  
 
-
-
-
-function loadDays() {
-    daysDictionary[0] = "Sun";
-    daysDictionary[1] = "Mon";
-    daysDictionary[2] = "Tue";
-    daysDictionary[3] = "Wed";
-    daysDictionary[4] = "Thur";
-    daysDictionary[5] = "Fri";
-    daysDictionary[6] = "Sat";
-    return daysDictionary;
+function displayResponse(lati, long) {
+    let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
+    axios.get(apiUrl).then((response) => {
+        const responseHolder = response;
+        import("./update.js").then(update => {
+            update.updateWeatherDays();
+            update.updateTemps(responseHolder.data.daily);
+            update.updateIcons(responseHolder.data.daily);
+        }).catch();
+        
+    });
 }
 
-
-function getDay(day) {
-    return daysDictionary[day];
-}
-
-
-function updateTemps(responseObject) {
-
-    for(let i = 0; i < 5; i++) {
-        dayWeather = responseObject[i].temp;
-        document.getElementById(daysMaxId[i]).innerHTML = Math.round(dayWeather.max);
-        document.getElementById(daysMinId[i]).innerHTML = Math.round(dayWeather.min);
-    }
-}
-
-
-
-function updateIcons(weatherResponse) {
-
-    // console.log(weatherResponse);
-    var days =["day-one-icon","day-two-icon","day-three-icon","day-four-icon","day-five-icon"]
-
-
-    for(i = 0; i < 5; i++) {
-        summary = weatherResponse[i].weather[0].main;
-        let newIcon = matchIcon(summary);
-        document.getElementById(days[i]).setAttribute("src", newIcon);
-    }
-
-
-}
 
 function matchIcon(weatherSummary) {
     
@@ -91,33 +46,6 @@ function matchIcon(weatherSummary) {
 
 }
 
-
-
-// function converts date to weekday 
-function updateWeatherDays() {
-    const dt = new Date();
-    var currentDay = dt.getDay();
-    count = 0;
-    actualCurrentDay = currentDay + count;
-
-    for(let j = 0; j < 5; j++) {
-        if(actualCurrentDay === 7) {actualCurrentDay = 0;}
-        weekday = getDay(Number(actualCurrentDay));
-        document.getElementById(days[j]).innerHTML = weekday;
-        // console.log(weekday);
-        actualCurrentDay++;
-    }
-}
-
-
-function writeToFile() {
-
-    navigator.geolocation.getCurrentPosition(position => {
-        console.log(position)
-      })
-}
-
-
 function newDay(){
     const dt = new Date();
     let date = (dt.getMonth() + 1).toString() + "/" + (dt.getDate()).toString();
@@ -127,8 +55,6 @@ function newDay(){
 
 function getWeatherInfo(long, lati) {
 
-    // console.log(lati);
-    // console.log(long);
     // let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lati}&lon=${long}&appid=${api}&units=metric`; // this is for one day forecast
     // let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lati}&lon=${long}&units=metric&appid=${api}`; // this is for 5 day forecast 
     
@@ -146,68 +72,22 @@ function getWeatherInfo(long, lati) {
 
 function getPts() {
     var cityName = document.getElementById('search-btn').value;
-
-    
-    import("./validation.js").then(module => {
-
-
-        let check = module.validateSearchButton(cityName);
+    import("./validation.js").then(validation => {
+        let check = validation.validateSearchButton(cityName);
         if(check === false) return;
-        // getWeatherInfo(-26.20, 28.05);
-        // getWeatherInfo(18.41, -33.92);
-
         let url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${api}`;
         axios.get(url).then((response) => {
-
-            // if(Number(response.status) == 200) {console.log("breach");}
-            // console.log(response);
-            validCity = module.validateCityName(response);
-            // console.log(validCity);
+            validCity = validation.validateCityName(response);
             if(validCity == false) {
-                // console.log("breach");
-                getWeatherInfo(-26.20, 28.05);
+                displayResponse(-26.20, 28.05);
                 return;
             }
-            
             else {
-
                 latitude = response.data[0].lat;    
                 longitude = response.data[0].lon;
-                // console.log(latitude);
-                // console.log(longitude);
-                // console.log(response.status);
-                getWeatherInfo(latitude.toFixed(2), longitude.toFixed(2)); // toFixed(x) rounds off to x decimal places
-                    
-                
+                displayResponse(latitude.toFixed(2), longitude.toFixed(2));
             }
-            
-
             });
-            
-            
-            
-            
-        
-    }).catch();
-    
-    
+    }).catch(); 
     
 }
-
-
-// function validateCityName(apiResponse) {
-//     // console.log(apiResponse.status);
-
-//     myVar = apiResponse.data.length === 0;
-//     if(myVar == true) return false;
-//     return true;
-// }
-
-
-// function validateSearchButton(inpt) {
-//     let inputHolder = inpt.trim();
-//     if(inputHolder === '') return false;
-//     return true;
-// }
-
-// main();  
