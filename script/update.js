@@ -49,6 +49,28 @@ export function updateIcons(weatherResponse) {
 
 
 
+function matchIcon(weatherSummary) {
+    
+    let img = 'svg_icons/Sun.svg';
+    switch(String(weatherSummary)) {
+        case "Clear":
+            img = 'svg_icons/Sun.svg';
+            break;
+        case "Cloud":
+            img = 'svg_icons/Cloud.svg';
+            break;
+        case "Rain":
+            img = 'svg_icons/Cloud_with_rain.svg';
+            break;
+    }
+
+    return img;
+
+}
+
+
+
+
 
 export function updateWeatherDays() {
     const dt = new Date();

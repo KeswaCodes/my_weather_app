@@ -28,24 +28,6 @@ function displayResponse(lati, long) {
 }
 
 
-function matchIcon(weatherSummary) {
-    
-    img = 'svg_icons/Sun.svg';
-    switch(String(weatherSummary)) {
-        case "Clear":
-            img = 'svg_icons/Sun.svg';
-            break;
-        case "Cloud":
-            img = 'svg_icons/Cloud.svg';
-            break;
-        case "Rain":
-            img = 'svg_icons/Cloud_with_rain.svg';
-            break;
-    }
-    return img;
-
-}
-
 function newDay(){
     const dt = new Date();
     let date = (dt.getMonth() + 1).toString() + "/" + (dt.getDate()).toString();
