@@ -1,8 +1,10 @@
 let daysDictionary = loadDays();    
 
+
 export function getDay(day) {
     return daysDictionary[day];
 }
+
 
 
 export function loadDays() {
@@ -38,8 +40,9 @@ export function updateIcons(weatherResponse) {
 
 
     for(let i = 0; i < 5; i++) {
-        let summary = weatherResponse[i].weather[0].main;
-        let newIcon = matchIcon(summary);
+        let summary = weatherResponse[i].weather[0].description;
+        let newIcon = matchIcon(summary.toLowerCase());
+
         document.getElementById(days[i]).setAttribute("src", newIcon);
     }
 
@@ -49,22 +52,43 @@ export function updateIcons(weatherResponse) {
 
 
 
-function matchIcon(weatherSummary) {
+export function matchIcon(weatherDescription) {
     
-    let img = 'svg_icons/Sun.svg';
-    switch(String(weatherSummary)) {
-        case "Clear":
-            img = 'svg_icons/Sun.svg';
-            break;
-        case "Cloud":
-            img = 'svg_icons/Cloud.svg';
-            break;
-        case "Rain":
-            img = 'svg_icons/Cloud_with_rain.svg';
-            break;
-    }
+    let img;
+    if(weatherDescription.includes("clear sky")) {img = 'svg_icons/Sun.svg';}
+    else if(weatherDescription.includes("overcast clouds")) {img = 'svg_icons/Cloud.svg';}
+    else if(weatherDescription.includes("light rain")) {img = 'svg_icons/rain.svg';}
+    else if(weatherDescription.includes("moderate rain")) {img = 'svg_icons/lightning.svg';}
+    else if(weatherDescription.includes("heavy")) {img = 'svg_icons/lightning&rain.svg';}
+    else if(weatherDescription.includes("broken cloud") || weatherDescription.includes("scattered clouds")) {img = 'svg_icons/sunbehindcloud.svg';}
+    else if(weatherDescription.includes("few clouds")) {img = 'svg_icons/sunsmalllcloud.svg';}
+    else if(weatherDescription.includes("snow")) {img = 'svg_icons/snow.svg';}
+
+    else {img = 'svg_icons/Sun.svg';}
 
     return img;
+
+
+
+    
+
+    
+    
+    // let img = 'svg_icons/Sun.svg';
+    // switch(String(weatherDescription)) {
+    //     case "Clear":
+    //         img = 'svg_icons/Sun.svg';
+    //         break;
+    //     case "Clouds":
+    //         img = 'svg_icons/sunsmalllcloud.svg';
+            
+    //         break;
+    //     case "Rain":
+    //         img = 'svg_icons/rain.svg';
+    //         break;
+    // }
+
+    // return img;
 
 }
 

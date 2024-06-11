@@ -33,12 +33,24 @@ div#search-engine {
 }
 
 
+a.the-days {
+    text-decoration-skip: none;
+}
+
+
+a#tester {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 #one-day-icon {
     width: 50%;
     height: 75%;
     border: 1px solid black;
     margin: 0 12px;
 }
+
 
 
 .box {
@@ -60,11 +72,20 @@ div#search-engine {
 
 }
 
+.days-button {
+    width: 100%;
+    z-index: -1;
+
+    height: 100
+    
+}
 
 .days {
+    z-index: 1;
     border: 1px solid #000;
     width: 120px;
     height: 200px;
+    cursor:     pointer;
     
     margin: 0 12px;
     /* margin: 0 auto; */

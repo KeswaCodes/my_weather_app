@@ -4,6 +4,8 @@ var daysMinId = ["day-one-min","day-two-min","day-three-min","day-four-min","day
 let position = navigator.geolocation.getCurrentPosition(displayInitialUpdate);
 var latitude  = 0, longitude = 0;
 let api = "773de069efc30b89839c476356b2799f";
+// let buttons = document.querySelectorAll('.days');
+// buttons.addEventListener('click', () => {console.log("Hellow");});
 
 
 function displayInitialUpdate(obj) {
@@ -12,13 +14,15 @@ function displayInitialUpdate(obj) {
     import("./update.js").then(module => {module.loadDays();}).catch();
     displayResponse(lati, long);
 }
- 
+
 
 function displayResponse(lati, long) {
     let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
     axios.get(apiUrl).then((response) => {
         const responseHolder = response;
+        import('./storage.js').then(storage => {storage.setResponse(responseHolder)}).catch();
         import("./update.js").then(update => {
+            console.log(response.data);
             update.updateWeatherDays();
             update.updateTemps(responseHolder.data.daily);
             update.updateIcons(responseHolder.data.daily);
@@ -50,6 +54,15 @@ function getWeatherInfo(long, lati) {
     
 }
 
+
+function greetUser(id) {
+
+    import('./test.js').then(test => {
+        test.myFun(id);
+    }).catch();
+    
+    // console.log(`Hello there ${id}! `);
+}
 
 
 function getPts() {
