@@ -49,6 +49,32 @@ export function updateIcons(weatherResponse) {
 
 }
 
+export function matchBackground(weatherDescription) {
+    // console.log("Entered matching background");
+    // console.log(weatherDescription);
+
+    // responseHolder.data.daily[0].weather[0].description
+    
+
+    let background;
+
+    if(weatherDescription.includes("clear sky")) {background = 'videos/clear_day.mp4';}
+    else if(weatherDescription.includes("overcast clouds")) {background = 'videos/cloudy.mp4';}
+    else if(weatherDescription.includes("light rain")) {background = 'videos/lightRain.mp4';}
+    else if(weatherDescription.includes("broken cloud") || weatherDescription.includes("scattered clouds") || weatherDescription.includes("few clouds")) {background = 'videos/partly_cloudy.mp4';}
+    else if(weatherDescription.includes("snow")) {background = 'videos/snowy.mp4';}
+    else if(weatherDescription.includes("heavy") || weatherDescription.includes("moderate rain")) {background = 'videos/lightning.mp4';}
+    
+    document.getElementById("five-day-background-video").setAttribute('src', background);
+    // document.getElementById("single-day-background-video").setAttribute('src', background);
+
+    // console.log(background);
+    return background;
+    
+}
+
+
+
 
 
 

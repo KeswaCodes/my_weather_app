@@ -20,9 +20,16 @@ function displayResponse(lati, long) {
     let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lati}&lon=${long}&units=metric&exclude=minutely,hourly,current,alerts&appid=${api}`;
     axios.get(apiUrl).then((response) => {
         const responseHolder = response;
-        import('./storage.js').then(storage => {storage.setResponse(responseHolder)}).catch();
+        import('./storage.js').then(storage => {
+            storage.setResponse(responseHolder)
+            storage.removeTxtFile();
+            storage.writeToTxtFile(response);
+
+        }).catch();
         import("./update.js").then(update => {
-            console.log(response.data);
+            // console.log(response.data);
+            let bkg = update.matchBackground(responseHolder.data.daily[0].weather[0].description);
+            // document.getElementById("single-day-background-video").setAttribute("src", bkg);
             update.updateWeatherDays();
             update.updateTemps(responseHolder.data.daily);
             update.updateIcons(responseHolder.data.daily);
@@ -56,9 +63,12 @@ function getWeatherInfo(long, lati) {
 
 
 function greetUser(id) {
+    console.log("First id encounter");
+    console.log(id);
 
-    import('./test.js').then(test => {
+    import('./current.js').then(test => {
         test.myFun(id);
+        // test.myFun(id);
     }).catch();
     
     // console.log(`Hello there ${id}! `);
