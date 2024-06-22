@@ -79,6 +79,10 @@ function greetUser(id) {
 
 
 function getPts() {
+
+    axios.get("http://localhost:3000/")
+    .then((res) => console.log(res.data));
+
     var cityName = document.getElementById('search-btn').value;
     import("./validation.js").then(validation => {
         let check = validation.validateSearchButton(cityName);
