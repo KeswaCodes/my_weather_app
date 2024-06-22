@@ -7,13 +7,13 @@ let currentDayWeather;
 window.onload = function() {
     
     console.log("Printing");
-    import('./storage.js').then(storage => {
+    // import('./storage.js').then(storage => {
 
-        let data = storage.readTxtFile();
-        console.log(data);
+    //     let data = storage.readTxtFile();
+    //     console.log(data);
         
         
-    }).catch();
+    // }).catch();
     console.log("Printed");
     
 }
