@@ -11,6 +11,9 @@ let api = "773de069efc30b89839c476356b2799f";
 function displayInitialUpdate(obj) {
     let lati = obj.coords.latitude;
     let long = obj.coords.longitude;
+    console.log(lati);
+    console.log(long);
+
     import("./update.js").then(module => {module.loadDays();}).catch();
     displayResponse(lati, long);
 }
@@ -66,10 +69,10 @@ function greetUser(id) {
     console.log("First id encounter");
     console.log(id);
 
-    import('./current.js').then(test => {
-        test.myFun(id);
-        // test.myFun(id);
-    }).catch();
+    // import('./current.js').then(test => {
+    //     test.myFun(id);
+    //     // test.myFun(id);
+    // }).catch();
     
     // console.log(`Hello there ${id}! `);
 }
